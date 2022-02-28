@@ -34,9 +34,10 @@ class Accs:
         pag.press('enter')
 
     def addAcont(self):
+        btag = input("Btag: ")
         email = input("Email: ")
         password = getpass("Password: ")
 
-        self.accs[str(len(self.accs)+1)] = {"email": email, "password": password}
+        self.accs[str(len(self.accs)+1)] = {"btag": btag, "email": email, "password": password}
 
         self.saveJson()

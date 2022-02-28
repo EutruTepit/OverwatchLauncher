@@ -12,7 +12,7 @@ def choose(accs):
 
     lista = []
     for item in accs.values():
-        lista.append( item["email"])   
+        lista.append( item["btag"])   
     lista.append("Add a new acc")
     lista.append("Exit")
 
