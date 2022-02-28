@@ -59,7 +59,6 @@ if __name__ == '__main__':
         print("trying to locate element..")
         time.sleep(0.12)
     time.sleep(0.1)
-    
-    index = accs.btagList()
+
     
     accs.login(answers['answer'])
