@@ -1,12 +1,8 @@
-#!python3
-
 # Grab base from https://github.com/AmirrezaM21/OverwatchAutoLogin
 
 import time
 import pyautogui as pag
-import numpy as np
 import json
-from getpass import getpass
 
 
 class Accs:
@@ -33,12 +29,8 @@ class Accs:
         time.sleep(0.1)
         pag.press('enter')
 
-    def addAcont(self):
-        btag = input("Btag: ")
-        email = input("Email: ")
-        password = getpass("Password: ")
-
-        self.accs[btag] = {"email": email, "password": password}
+    def addAcont(self, newAcc):  
+        self.accs[newAcc['btag']] = {"email": newAcc["email"], "password": newAcc["password"]}
 
         self.saveJson()
         

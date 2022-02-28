@@ -1,8 +1,5 @@
-#!python3
-
 # Grab base from https://github.com/AmirrezaM21/OverwatchAutoLogin
 
-from operator import index
 from accs import Accs
 import time
 import os
@@ -22,19 +19,27 @@ if __name__ == '__main__':
         choices.append("Exit")
         
         questions = [
-        inquirer.List('answer',
-                    message="Choose one of accs",
-                    choices=choices,
-                    carousel=True
-                ),
+            inquirer.List('answer',
+                        message="Choose one of accs",
+                        choices=choices,
+                        carousel=True
+                    ),
         ]
+        addNewAcc = [
+            inquirer.Text('btag', message="Btag"),
+            inquirer.Text('email', message="Email"),
+            inquirer.Password('password', message="Password")
+        ]
+        
         answers = inquirer.prompt(questions)
 
         if answers["answer"] == "Exit":
             exit()
         if answers["answer"] == "Add a new acc":
-            print("Add new account: ")
-            accs.addAcont()
+            newAcc = inquirer.prompt(addNewAcc)
+            accs.addAcont(newAcc)
+            time.sleep(0.5)
+            os.system('cls')
         if answers["answer"] in accs.btagList():
             break
  
