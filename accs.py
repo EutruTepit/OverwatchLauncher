@@ -15,7 +15,7 @@ class Accs:
     
     def openJson(self):
         try:
-            with open("accs.json") as jsonfile:
+            with open("accs.json", encoding='utf-8') as jsonfile:
                 jsonFile = json.load(jsonfile)
             return jsonFile
         except:
