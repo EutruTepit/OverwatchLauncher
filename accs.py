@@ -33,6 +33,12 @@ class Accs:
         self.accs[newAcc['btag']] = {"email": newAcc["email"], "password": newAcc["password"]}
 
         self.saveJson()
+    
+    def delAcont(self, delacc):
+        self.accs.pop(delacc)
+        
+        self.saveJson()
+        return delacc
         
     def btagList(self):
         return list(self.accs.keys())

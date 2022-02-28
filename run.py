@@ -16,6 +16,7 @@ if __name__ == '__main__':
     while True:
         choices = accs.btagList()
         choices.append("Add a new acc")
+        choices.append("Delete acc")
         choices.append("Exit")
         
         questions = [
@@ -25,21 +26,47 @@ if __name__ == '__main__':
                         carousel=True
                     ),
         ]
-        addNewAcc = [
-            inquirer.Text('btag', message="Btag"),
-            inquirer.Text('email', message="Email"),
-            inquirer.Password('password', message="Password")
-        ]
         
         answers = inquirer.prompt(questions)
 
         if answers["answer"] == "Exit":
             exit()
+            
         if answers["answer"] == "Add a new acc":
+            addNewAcc = [
+                inquirer.Text('btag', message="Btag"),
+                inquirer.Text('email', message="Email"),
+                inquirer.Password('password', message="Password")
+            ]
+            
             newAcc = inquirer.prompt(addNewAcc)
             accs.addAcont(newAcc)
+            
             time.sleep(0.5)
             os.system('cls')
+            
+        if answers["answer"] == "Delete acc":
+            delacc = accs.btagList()
+            delacc.append("Cancel")
+            
+            choicesDel = [
+                inquirer.List('answer',
+                        message="Choose to delete",
+                        choices=delacc,
+                        carousel=True
+                    ),
+            ]
+            
+            selectAcc = inquirer.prompt(choicesDel)
+            
+            if selectAcc['answer'] != "Cancel":
+                os.system('cls')
+                print("Acc deleted: ", accs.delAcont(selectAcc['answer']))
+            else:
+                time.sleep(0.5)
+                os.system('cls')
+                print("Operation canceled.")
+            
         if answers["answer"] in accs.btagList():
             break
  
