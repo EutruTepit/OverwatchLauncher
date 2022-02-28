@@ -1,52 +1,75 @@
-#!python3
-
 # Grab base from https://github.com/AmirrezaM21/OverwatchAutoLogin
 
-import accs
+from accs import Accs
 import time
 import os
 import scaningScreen as scan
-
-def choose(accs):
-    print("Choose one of accs")
-
-    lista = []
-    for item in accs.values():
-        lista.append( item["btag"])   
-    lista.append("Add a new acc")
-    lista.append("Exit")
-
-    i = 0
-    while(i < len(lista)):
-        print(f"{i+1} -- {lista[i]}")
-        i += 1
-
-    resp = int(input("N°: "))
-
-    while (resp > len(lista)):
-        resp = int(input("N° not in list: "))
-
-    return resp, i
-
+import inquirer
 
 sample_img = ".\img\login.png"
 launcher = ".\scripts\Overwatch.bat" # Bat just to force OW inicialize in high priority (a little better performace)
 
 
 if __name__ == '__main__':
-    accs = accs.Accs()
+    accs = Accs()
     
     while True:
-        resp, i = choose(accs.accs)
+        choices = accs.btagList()
+        choices.append("Add a new acc")
+        choices.append("Delete acc")
+        choices.append("Exit")
         
-        if  resp == i:
+        questions = [
+            inquirer.List('answer',
+                        message="Choose one of accs",
+                        choices=choices,
+                        carousel=True
+                    ),
+        ]
+        
+        answers = inquirer.prompt(questions)
+
+        if answers["answer"] == "Exit":
             exit()
-        
-        if resp == i-1 : 
-            accs.addAcont()
-        else:
+            
+        if answers["answer"] == "Add a new acc":
+            addNewAcc = [
+                inquirer.Text('btag', message="Btag"),
+                inquirer.Text('email', message="Email"),
+                inquirer.Password('password', message="Password")
+            ]
+            
+            newAcc = inquirer.prompt(addNewAcc)
+            accs.addAcont(newAcc)
+            
+            time.sleep(0.5)
+            os.system('cls')
+            
+        if answers["answer"] == "Delete acc":
+            delacc = accs.btagList()
+            delacc.append("Cancel")
+            
+            choicesDel = [
+                inquirer.List('answer',
+                        message="Choose to delete",
+                        choices=delacc,
+                        carousel=True
+                    ),
+            ]
+            
+            selectAcc = inquirer.prompt(choicesDel)
+            
+            if selectAcc['answer'] != "Cancel":
+                os.system('cls')
+                print("Acc deleted: ", accs.delAcont(selectAcc['answer']))
+            else:
+                time.sleep(0.5)
+                os.system('cls')
+                print("Operation canceled.")
+            
+        if answers["answer"] in accs.btagList():
             break
-    
+ 
     print("Running Script...")
     print("Opening Overwatch client")
     os.startfile(launcher)
@@ -63,7 +86,6 @@ if __name__ == '__main__':
         print("trying to locate element..")
         time.sleep(0.12)
     time.sleep(0.1)
+
     
-    accs.login(resp)
-    
-    
+    accs.login(answers['answer'])

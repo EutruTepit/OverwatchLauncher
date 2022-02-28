@@ -1,5 +1,3 @@
-#!python3
-
 # Grab base from https://github.com/AmirrezaM21/OverwatchAutoLogin
 
 import cv2
