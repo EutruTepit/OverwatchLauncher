@@ -26,10 +26,10 @@ class Accs:
             json.dump(self.accs, jsonfile, indent=4)
 
     def login(self, index):
-        pag.typewrite(self.accs[str(index)]['email'])
+        pag.typewrite(self.accs[index]['email'])
         time.sleep(0.1)
         pag.press('tab')
-        pag.typewrite(self.accs[str(index)]['password'])
+        pag.typewrite(self.accs[index]['password'])
         time.sleep(0.1)
         pag.press('enter')
 
@@ -38,6 +38,9 @@ class Accs:
         email = input("Email: ")
         password = getpass("Password: ")
 
-        self.accs[str(len(self.accs)+1)] = {"btag": btag, "email": email, "password": password}
+        self.accs[btag] = {"email": email, "password": password}
 
         self.saveJson()
+        
+    def btagList(self):
+        return list(self.accs.keys())

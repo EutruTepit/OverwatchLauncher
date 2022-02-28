@@ -2,7 +2,8 @@
 
 # Grab base from https://github.com/AmirrezaM21/OverwatchAutoLogin
 
-import accs
+from operator import index
+from accs import Accs
 import time
 import os
 import scaningScreen as scan
@@ -10,9 +11,8 @@ import scaningScreen as scan
 def choose(accs):
     print("Choose one of accs")
 
-    lista = []
-    for item in accs.values():
-        lista.append( item["btag"])   
+    lista = accs.btagList()
+    
     lista.append("Add a new acc")
     lista.append("Exit")
 
@@ -34,10 +34,10 @@ launcher = ".\scripts\Overwatch.bat" # Bat just to force OW inicialize in high p
 
 
 if __name__ == '__main__':
-    accs = accs.Accs()
+    accs = Accs()
     
     while True:
-        resp, i = choose(accs.accs)
+        resp, i = choose(accs)
         
         if  resp == i:
             exit()
@@ -64,6 +64,6 @@ if __name__ == '__main__':
         time.sleep(0.12)
     time.sleep(0.1)
     
-    accs.login(resp)
+    index = accs.btagList()
     
-    
+    accs.login(index[resp-1])
