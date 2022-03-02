@@ -1,5 +1,6 @@
 # Grab base from https://github.com/AmirrezaM21/OverwatchAutoLogin
 
+import sys
 from accs import Accs
 import time
 import os
@@ -28,7 +29,7 @@ if __name__ == '__main__':
         answers = inquirer.prompt(questions)
 
         if answers["answer"] == "Exit":
-            exit()
+            sys.exit()
             
         if answers["answer"] == "Add a new acc":
             addNewAcc = [
