@@ -3,22 +3,23 @@
 import time
 import pyautogui as pag
 import json
-
+import dirProce
 
 class Accs:
     def __init__(self):
-        self.accs = self.openJson()
+        self.path_json = dirProce.openConfig().get('paths', 'accs_json')
+        self.accs = self.openJson()   
     
     def openJson(self):
         try:
-            with open("accs.json", encoding='utf-8') as jsonfile:
+            with open(self.path_json, encoding='utf-8') as jsonfile:
                 jsonFile = json.load(jsonfile)
             return jsonFile
         except:
             return {}
     
     def saveJson(self):
-        with open("accs.json", "w") as jsonfile:
+        with open(self.path_json, "w") as jsonfile:
             json.dump(self.accs, jsonfile, indent=4)
 
     def login(self, index):

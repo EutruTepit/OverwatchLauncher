@@ -5,12 +5,10 @@ import time
 import os
 import scaningScreen as scan
 import inquirer
-
-sample_img = ".\img\login.png"
-launcher = ".\scripts\Overwatch.bat" # Bat just to force OW inicialize in high priority (a little better performace)
-
+import dirProce
 
 if __name__ == '__main__':
+    config = dirProce.openConfig()
     accs = Accs()
     
     while True:
@@ -72,10 +70,11 @@ if __name__ == '__main__':
  
     print("Running Script...")
     print("Opening Overwatch client")
-    os.startfile(launcher)
+
+    os.system(config.get('commands', 'start_overwatch'))
    
     try:
-        sample = scan.readImage(sample_img)
+        sample = scan.readImage(config.get('paths', 'sample_img'))
     except NameError:
         print("Can't open sample file!")
         print(NameError)
