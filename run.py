@@ -6,10 +6,10 @@ import time
 import os
 import scaningScreen as scan
 import inquirer
-import dirProce
+import settings
 
 if __name__ == '__main__':
-    config = dirProce.openConfig()
+    config = settings.openConfig()
     accs = Accs()
     
     while True:

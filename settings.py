@@ -31,8 +31,7 @@ def configBase()->None:
         'overwatch': 'C:\Program Files (x86)\Overwatch\_retail_\Overwatch.exe',
         'sample_img': '.\img\login.png',
         'appdata_path': appdata_path,
-        'accs_json': "${paths:appdata_path}/accs.json",
-        'config_ini': "${paths:appdata_path}/.config.ini"
+        'accs_json': "${paths:appdata_path}/accs.json"
     }
     
     saveConfig(config, appdata_path)

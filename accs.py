@@ -3,12 +3,12 @@
 import time
 import pyautogui as pag
 import json
-import dirProce
+import settings
 
 class Accs:
     def __init__(self):
-        self.path_json = dirProce.openConfig().get('paths', 'accs_json')
-        self.accs = self.openJson()   
+        self.path_json = settings.openConfig().get('paths', 'accs_json')
+        self.accs = self.openJson()
     
     def openJson(self):
         try:
